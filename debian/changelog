@@ -1,3 +1,12 @@
+nodejs (0.10.29~dfsg-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Add 2015_fix_test_crypto_stream.patch: backport fix from upstream to
+    support newer openssl. Thanks to Jean Baptiste Favre and James Cowgill.
+    Closes: #766484.
+
+ -- Ivo De Decker <ivodd@debian.org>  Sun, 28 Dec 2014 13:53:25 +0100
+
 nodejs (0.10.29~dfsg-1) unstable; urgency=medium
 
   * Upstream update.
