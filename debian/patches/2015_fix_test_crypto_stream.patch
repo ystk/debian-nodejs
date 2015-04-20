@@ -1,27 +1,16 @@
-From 707cc25011d142fe4ade14ce2aa083a96ef15bcb Mon Sep 17 00:00:00 2001
-From: Fedor Indutny <fedor@indutny.com>
-Date: Wed, 15 Oct 2014 20:50:15 +0400
-Subject: [PATCH] test: fix test-crypto-stream
+Description: loosen error check in test-crypto-stream
+Origin: https://github.com/joyent/node/commit/9e387fb6
+Last-Update: 2015-04-12
 
-Because of constant-timeness change made in openssl-1.0.1j the error is
-no longer returned from EVP_DecryptFinal_ex. Now it just return 0, and
-thus the error message does not contain proper error code. Adapt to this
-change, there is not much that we could do about it.
----
- test/simple/test-crypto-stream.js | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/test/simple/test-crypto-stream.js b/test/simple/test-crypto-stream.js
-index 72c9776..402761e 100644
 --- a/test/simple/test-crypto-stream.js
 +++ b/test/simple/test-crypto-stream.js
-@@ -70,8 +70,7 @@ var key = new Buffer('48fb56eb10ffeb13fc0ef551bbca3b1b', 'hex'),
+@@ -70,8 +70,7 @@
  
  cipher.pipe(decipher)
    .on('error', common.mustCall(function end(err) {
 -    // TypeError: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt
 -    assert(/:06065064:/.test(err));
-+    assert(/:00000000:/.test(err));
++    assert(/bad decrypt/.test(err));
    }));
  
  cipher.end('Papaya!');  // Should not cause an unhandled exception.
